@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
+import com.fallenapps.playground.R
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -19,32 +20,62 @@ class MyProgressView(context: Context?, attrs: AttributeSet?) : View(context, at
 
     private val startAngle = 200F
     private val maxSweepAngle = 140F
-    private val secondaryProgress = 0.5F
-    private val indicatorAt = 0.7F
-    private val sweepAngle = 0
+
+    private  var primaryProgressColor=0
+    private  var secondaryProgressColor=0
+    private  var indicatorColor=0
+
+    private var secondaryProgress = 0F
+    private var indicatorAt = 0F
+    private var progressWidth = 0F
+    private var indicatorWidth = 0F
+
+
 
     init {
+        context?.theme?.obtainStyledAttributes(
+            attrs,
+            R.styleable.MyProgressView,
+            0, 0)?.apply {
+            try {
+                secondaryProgress =
+                    getInteger(R.styleable.MyProgressView_secondary_progress, 0) / 100F
+                indicatorAt = getInteger(R.styleable.MyProgressView_indicator_position, 0) / 100F
+
+                primaryProgressColor = getColor(R.styleable.MyProgressView_primary_progress_color,Color.LTGRAY)
+                secondaryProgressColor = getColor(R.styleable.MyProgressView_secondary_progress_color,Color.GREEN)
+                indicatorColor = getColor(R.styleable.MyProgressView_indicator_color,Color.BLUE)
+
+                progressWidth = getDimension(R.styleable.MyProgressView_progress_width, 10F)
+                indicatorWidth = getDimension(R.styleable.MyProgressView_indicator_width, 10F)
+
+            } finally {
+                recycle()
+            }
+        }
+
         primaryProgressPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply{
 
-            this.color=Color.GRAY
-            this.strokeWidth = 20F
+            this.color=primaryProgressColor
+            this.strokeWidth = progressWidth
             this.strokeCap=Paint.Cap.ROUND
             this.style = Paint.Style.STROKE
             this.isAntiAlias = true
 
         }
         secondaryProgressPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply{
-            this.color=Color.RED
-            this.strokeWidth = 20F
+            this.color=secondaryProgressColor
+            this.strokeWidth = progressWidth
             this.style = Paint.Style.STROKE
+            this.strokeCap=Paint.Cap.ROUND
             this.isAntiAlias = true
 
 
 
         }
         indicatorPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply{
-            this.color=Color.BLUE
-            this.strokeWidth = 20F
+            this.color=indicatorColor
+            this.strokeWidth = indicatorWidth
             this.style = Paint.Style.STROKE
             this.isAntiAlias = true
 
@@ -73,21 +104,6 @@ class MyProgressView(context: Context?, attrs: AttributeSet?) : View(context, at
         val startY: Float =
             (sin(Math.toRadians((200+(140F*indicatorAt)).toDouble())) * radius + mY+offsetY).toFloat()
         canvas.drawCircle(startX, startY, 10F, indicatorPaint);
-
-
-//        val myPath = Path()
-//        myPath.addArc(rect.left,rect.top,rect.right,rect.bottom,startAngle, 140F)
-//        canvas?.drawPath(myPath,primaryProgressPaint)
-//        //canvas?.translate(0F, -(canvas.bottom / 2))
-//
-//        //canvas?.drawOval(rect,primaryProgressPaint)
-//
-//       // canvas?.drawArc(rect, startAngle, 180f, true, secondaryProgressPaint)
-//
-//        //canvas?.drawArc(rect, 200F, 200F, true, indicatorPaint)
-
-
-
     }
 
 

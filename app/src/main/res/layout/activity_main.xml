@@ -24,6 +24,13 @@
     <com.fallenapps.playground.view.MyProgressView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:primary_progress_color="#0F0"
+        app:secondary_progress_color="#00F"
+        app:indicator_color="#F00"
+        app:progress_width="20dp"
+        app:indicator_width="20dp"
+        app:secondary_progress="50"
+        app:indicator_position="75"
         />
     </FrameLayout>
     </FrameLayout>
