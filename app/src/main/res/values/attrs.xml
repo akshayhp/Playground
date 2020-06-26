@@ -7,6 +7,6 @@
             <attr name="secondary_progress" format="integer" />
             <attr name="indicator_position" format="integer" />
             <attr name="progress_width" format="dimension" />
-            <attr name="indicator_width" format="dimension" />
+            <attr name="indicator_radius" format="dimension" />
         </declare-styleable>
 </resources>

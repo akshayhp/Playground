@@ -18,8 +18,8 @@ class MyProgressView(context: Context?, attrs: AttributeSet?) : View(context, at
     private  val secondaryProgressPaint:Paint
     private  val indicatorPaint:Paint
 
-    private val startAngle = 200F
-    private val maxSweepAngle = 140F
+    private val startAngle = 190F
+    private val maxSweepAngle = 160F
 
     private  var primaryProgressColor=0
     private  var secondaryProgressColor=0
@@ -47,7 +47,7 @@ class MyProgressView(context: Context?, attrs: AttributeSet?) : View(context, at
                 indicatorColor = getColor(R.styleable.MyProgressView_indicator_color,Color.BLUE)
 
                 progressWidth = getDimension(R.styleable.MyProgressView_progress_width, 10F)
-                indicatorWidth = getDimension(R.styleable.MyProgressView_indicator_width, 10F)
+                indicatorWidth = getDimension(R.styleable.MyProgressView_indicator_radius, 10F)
 
             } finally {
                 recycle()
@@ -76,7 +76,7 @@ class MyProgressView(context: Context?, attrs: AttributeSet?) : View(context, at
         indicatorPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply{
             this.color=indicatorColor
             this.strokeWidth = indicatorWidth
-            this.style = Paint.Style.STROKE
+            this.style = Paint.Style.FILL
             this.isAntiAlias = true
 
         }
@@ -87,23 +87,21 @@ class MyProgressView(context: Context?, attrs: AttributeSet?) : View(context, at
 
         val rect = RectF(canvas?.clipBounds)
 
-
         val mX=rect.width()/2
         val mY=rect.height()
 
-        val radius = (rect.width()-20F)/2
-        val offsetY = (rect.width())*0.125F
+        val radius = (rect.width()-progressWidth)/2
+        val offsetY = progressWidth
         val oval = RectF(mX - radius, mY - (radius-offsetY), mX + radius, mY + radius+offsetY)
         canvas!!.drawArc(oval, startAngle, maxSweepAngle, false, primaryProgressPaint)
         canvas!!.drawArc(oval, startAngle, maxSweepAngle*secondaryProgress, false, secondaryProgressPaint)
-
 
         val startX: Float =
             (cos(Math.toRadians((200F+(140F*indicatorAt)).toDouble())) * radius + mX).toFloat()
 
         val startY: Float =
-            (sin(Math.toRadians((200+(140F*indicatorAt)).toDouble())) * radius + mY+offsetY).toFloat()
-        canvas.drawCircle(startX, startY, 10F, indicatorPaint);
+            (sin(Math.toRadians((200F+(140F*indicatorAt)).toDouble())) * radius + mY+offsetY).toFloat()
+        canvas.drawCircle(startX, startY, indicatorWidth, indicatorPaint);
     }
 
 
