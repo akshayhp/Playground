@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <com.fallenapps.playground.view.MyProgressView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/progressView"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="300dp"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        app:primary_progress_color="#E4EAEC"
+        app:secondary_progress_color="#DE616D"
+        app:indicator_color="#0C225A"
+        app:progress_width="12dp"
+        app:indicator_radius="8dp"
+        app:secondary_progress="20"
+        app:indicator_position="0"
+        />
+
+</LinearLayout>

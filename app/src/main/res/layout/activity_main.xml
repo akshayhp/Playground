@@ -6,32 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <FrameLayout
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:padding="2dp"
-        android:layout_margin="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:background="#FFF"
-            android:layout_height="match_parent">
-    <com.fallenapps.playground.view.MyProgressView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_height="match_parent"
-        app:primary_progress_color="#E4EAEC"
-        app:secondary_progress_color="#DE616D"
-        app:indicator_color="#0C225A"
-        app:progress_width="16dp"
-        app:indicator_radius="8dp"
-        app:secondary_progress="20"
-        app:indicator_position="50"
-        />
-    </FrameLayout>
-    </FrameLayout>
+        android:layout_height="match_parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

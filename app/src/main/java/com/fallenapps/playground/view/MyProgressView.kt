@@ -94,15 +94,42 @@ class MyProgressView(context: Context?, attrs: AttributeSet?) : View(context, at
         val offsetY = progressWidth
         val oval = RectF(mX - radius, mY - (radius-offsetY), mX + radius, mY + radius+offsetY)
         canvas!!.drawArc(oval, startAngle, maxSweepAngle, false, primaryProgressPaint)
-        canvas!!.drawArc(oval, startAngle, maxSweepAngle*secondaryProgress, false, secondaryProgressPaint)
+        canvas!!.drawArc(oval, startAngle, maxSweepAngle*secondaryProgress/100, false, secondaryProgressPaint)
 
         val startX: Float =
-            (cos(Math.toRadians((200F+(140F*indicatorAt)).toDouble())) * radius + mX).toFloat()
+            (cos(Math.toRadians((startAngle+(maxSweepAngle*indicatorAt/100)).toDouble())) * radius + mX).toFloat()
 
         val startY: Float =
-            (sin(Math.toRadians((200F+(140F*indicatorAt)).toDouble())) * radius + mY+offsetY).toFloat()
+            (sin(Math.toRadians((startAngle+(maxSweepAngle*indicatorAt/100)).toDouble())) * radius + mY+offsetY).toFloat()
         canvas.drawCircle(startX, startY, indicatorWidth, indicatorPaint);
     }
 
+
+    fun setAttributes(primaryProgressColor:Int,
+                      secondaryProgressColor:Int,
+                      indicatorColor:Int,
+                      secondaryProgress:Float,
+                      indicatorPosition:Float
+                        ){
+        this.primaryProgressColor =primaryProgressColor
+        this.primaryProgressPaint.color=this.primaryProgressColor
+
+        this.secondaryProgressColor = secondaryProgressColor
+        this.secondaryProgressPaint.color = secondaryProgressColor
+
+        this.indicatorColor = indicatorColor
+        this.indicatorPaint.color = this.indicatorColor
+
+        this.secondaryProgress = secondaryProgress
+        this.indicatorAt = indicatorPosition
+         invalidate()
+        requestLayout()
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, widthMeasureSpec/2)
+        setMeasuredDimension(widthMeasureSpec, widthMeasureSpec/2);
+
+    }
 
 }
